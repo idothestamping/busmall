@@ -5,6 +5,7 @@ var busMallPic = document.getElementById('busMallPic');
 var busMallPic2 = document.getElementById('busMallPic2');
 var busMallPic3 = document.getElementById('busMallPic3');
 var lastItemSelected = document.getElementById('lastItemSelected');
+var totalClickCount = document.getElementById('totalClickCount');
 var totalViews = 0;
 
 function BusMallPic(name) {
@@ -78,7 +79,7 @@ function showRandomPic(newGenNumThree) {
 
 showRandomPic();
 
-var counter = 0;
+var counter = 1;
 function handlePicClick(event) {
   // console.log(event);
   console.log('clicked event: ' + event.target.alt);
@@ -89,11 +90,11 @@ function handlePicClick(event) {
   addCount.clicked += 1;
   console.log('User picked ' + addCount.name + ' Total clicked count: ' + addCount.clicked);
   lastItemSelected.innerHTML = event.target.alt;
-
+  totalClickCount.innerHTML = counter;
   // add to user total counter per click
   counter++;
   console.log(counter);
-  if(counter == 25) {  // change to 25 per user story
+  if(counter == 26) {  // change to 25 per user story
     for(var i = 0 ; i < allPics.length; i++) {
       var grabDiv = document.getElementById('grandTotal');
       var addAllPicsArr = document.createElement('li');
@@ -102,6 +103,7 @@ function handlePicClick(event) {
     }
     var selectedItemList = document.getElementById('selectedItemList');
     var selectedItemList2 = document.getElementById('selectedItemList2');
+
     var addselectedItem = document.createElement('li');
     var addselectedItem2 = document.createElement('li');
     var clickTotal = allPics.reduce(function (prev, current) {
@@ -109,8 +111,8 @@ function handlePicClick(event) {
     var viewTotal = allPics.reduce(function (prev, current) {
       return (prev.views > current.views) ? prev : current });
     // addselectedItem.textContent = clickTotal.name + ' (' + clickTotal.clicked + ') ' + (clickTotal.clicked * 100/counter)+'% of Total Clicks';
-    addselectedItem.textContent = clickTotal.name + '@ ' + clickTotal.clicked + ' clicks (' + (clickTotal.clicked * 100/counter)+'%) of Total';
-    addselectedItem2.textContent = viewTotal.name + '@ '  + viewTotal.views + ' views (' + (Math.round(viewTotal.views * totalViews) / 100).toFixed(2)+'%) of Total';
+    addselectedItem.textContent = clickTotal.name + '@ ' + clickTotal.clicked + ' clicks (' + (Math.round(clickTotal.clicked * counter) / 100).toFixed(2) + '%) of Total';
+    addselectedItem2.textContent = viewTotal.name + '@ '  + viewTotal.views + ' views (' + (Math.round(viewTotal.views * totalViews) / 100).toFixed(2) + '%) of Total';
     // addselectedItem.textContent = max.name + ' ' + Math.max.apply(Math, allPics.map(function(o) { 
     //   return o.clicked; }));
     // addselectedItem2.textContent = Math.max.apply(Math, allPics.map(function(o) { 
