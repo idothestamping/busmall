@@ -111,15 +111,17 @@ function handlePicClick(event) {
     var viewTotal = allPics.reduce(function (prev, current) {
       return (prev.views > current.views) ? prev : current });
     // addselectedItem.textContent = clickTotal.name + ' (' + clickTotal.clicked + ') ' + (clickTotal.clicked * 100/counter)+'% of Total Clicks';
-    addselectedItem.textContent = clickTotal.name + '@ ' + clickTotal.clicked + ' clicks (' + (Math.round(clickTotal.clicked * counter) / 100).toFixed(2) + '%) of Total';
-    addselectedItem2.textContent = viewTotal.name + '@ '  + viewTotal.views + ' views (' + (Math.round(viewTotal.views * totalViews) / 100).toFixed(2) + '%) of Total';
+    addselectedItem.textContent = clickTotal.name + '@ ' + clickTotal.clicked + ' clicks (' + (Math.round(clickTotal.clicked * 100/counter)).toFixed(2) + '%) of Total';
+    addselectedItem2.textContent = viewTotal.name + '@ '  + viewTotal.views + ' views (' + (Math.round(viewTotal.views * 100/totalViews)).toFixed(2) + '%) of Total';
     // addselectedItem.textContent = max.name + ' ' + Math.max.apply(Math, allPics.map(function(o) { 
     //   return o.clicked; }));
     // addselectedItem2.textContent = Math.max.apply(Math, allPics.map(function(o) { 
     // return o.views; }));
     selectedItemList.appendChild(addselectedItem).classList.add('list');
     selectedItemList2.appendChild(addselectedItem2).classList.add('list');
-
+    busMallPic.removeEventListener('click', handlePicClick);
+    busMallPic2.removeEventListener('click', handlePicClick);
+    busMallPic3.removeEventListener('click', handlePicClick);
 
   }
   showRandomPic();
