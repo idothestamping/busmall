@@ -37,20 +37,20 @@ new BusMallPic('usb');
 new BusMallPic('water-can');
 new BusMallPic('wine-glass');
 
-function showRandomPic(newGenNumThree) {
-  
-  var newGenNumThree = []; 
+function showRandomPic() {
+
+  var newGenNumThree = [];
 
   function in_array(array, el) {
-    for(var i = 0 ; i < allPics.length; i++) 
-      if(array[i] == el) return true;
+    for(var i = 0 ; i < allPics.length; i++)
+      if(array[i] === el) return true;
     return false;
   }
 
-  function get_rand(array) { 
+  function get_rand(array) {
     var rand = allPics[Math.floor(Math.random() * allPics.length)]; // Product Object
     for(var i = 0; i < 3; i++) {
-      if(!in_array(newGenNumThree, rand)) {  
+      if(!in_array(newGenNumThree, rand)) {
         newGenNumThree.push(rand); // Add new product to array 3 times, only if it's not duplicate
         rand.views += 1;
         totalViews++;
@@ -94,7 +94,7 @@ function handlePicClick(event) {
   // add to user total counter per click
   counter++;
   console.log(counter);
-  if(counter == 26) {  // change to 25 per user story
+  if(counter === 26) { // change to 25 per user story
     for(var i = 0 ; i < allPics.length; i++) {
       var grabDiv = document.getElementById('grandTotal');
       var addAllPicsArr = document.createElement('li');
@@ -107,15 +107,15 @@ function handlePicClick(event) {
     var addselectedItem = document.createElement('li');
     var addselectedItem2 = document.createElement('li');
     var clickTotal = allPics.reduce(function (prev, current) {
-      return (prev.clicked > current.clicked) ? prev : current });
+      return (prev.clicked > current.clicked) ? prev : current;});
     var viewTotal = allPics.reduce(function (prev, current) {
-      return (prev.views > current.views) ? prev : current });
+      return (prev.views > current.views) ? prev : current;});
     // addselectedItem.textContent = clickTotal.name + ' (' + clickTotal.clicked + ') ' + (clickTotal.clicked * 100/counter)+'% of Total Clicks';
     addselectedItem.textContent = clickTotal.name + '@ ' + clickTotal.clicked + ' clicks (' + (Math.round(clickTotal.clicked * 100/counter)).toFixed(2) + '%) of Total';
-    addselectedItem2.textContent = viewTotal.name + '@ '  + viewTotal.views + ' views (' + (Math.round(viewTotal.views * 100/totalViews)).toFixed(2) + '%) of Total';
-    // addselectedItem.textContent = max.name + ' ' + Math.max.apply(Math, allPics.map(function(o) { 
+    addselectedItem2.textContent = viewTotal.name + '@ ' + viewTotal.views + ' views (' + (Math.round(viewTotal.views * 100/totalViews)).toFixed(2) + '%) of Total';
+    // addselectedItem.textContent = max.name + ' ' + Math.max.apply(Math, allPics.map(function(o) {
     //   return o.clicked; }));
-    // addselectedItem2.textContent = Math.max.apply(Math, allPics.map(function(o) { 
+    // addselectedItem2.textContent = Math.max.apply(Math, allPics.map(function(o) {
     // return o.views; }));
     selectedItemList.appendChild(addselectedItem).classList.add('list');
     selectedItemList2.appendChild(addselectedItem2).classList.add('list');
