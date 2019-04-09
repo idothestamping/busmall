@@ -6,45 +6,86 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Image Event Demo</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/fingerheart.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 <body>
   <header> 
-      <nav>
-        <div class="nav-wrapper">
-          <a href="/" class="brand-logo"><i class="material-icons">directions_bus</i>Bus Mall</a>
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul id="menu1" class="right hide-on-med-and-down">
-            <li><a class="menu2" href="">Sign up (DEMO)</a></li>
-            <li><a class="menu2" href="">Login (DEMO)</a></li>
-          </ul>
-          <ul class="right hide-on-med-and-down">
-          </ul>
-        </div>
-
-        <ul class="sidenav" id="mobile-demo">
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo"><i class="material-icons">directions_bus</i>Bus Mall</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul id="menu1" class="right hide-on-med-and-down">
           <li><a class="menu2" href="">Sign up (DEMO)</a></li>
           <li><a class="menu2" href="">Login (DEMO)</a></li>
         </ul>
-  
-      </nav>
+        <ul class="right hide-on-med-and-down">
+        </ul>
+      </div>
+      
+      <ul class="sidenav" id="mobile-demo">
+        <li><a class="menu2" href="">Sign up (DEMO)</a></li>
+        <li><a class="menu2" href="">Login (DEMO)</a></li>
+      </ul>
+      
+    </nav>
   </header>
   <main>
-      <h4>Select one of 3 Products to determine your favorite</h4>
-    <section>
-  
+          
+
+    <!-- <h4>Select your product</h4> -->
+    <section id="voting">
+      
       <img class ="productImg" id="busMallPic" src="" alt="" title="" />
       <img class ="productImg" id="busMallPic2" src="" alt="" title="" />
       <img class ="productImg" id="busMallPic3" src="" alt="" title="" />
-      <ul id="grandTotal">Total Count and View Result:</ul>
+      <ul id="grandTotal"></ul>
+      
+      
+      
+      <!-- <h4>Click to vote on your favorite of these songs:</h4>
+      <button id="purplerain">Purple Rain</button>
+      <button id="letswork">Let's Work</button>
+      <button id="dmsr">DMSR</button>
+      <button id="mountains">Mountains</button>
+      <button id="starfish">Starfish and Coffee</button>
+      <p class="inline-p">Then...</p> -->
+      <!-- <button id="draw-chart">Click here to see a chart!</button> -->
+      <!-- <button id="list-button">Or a lame old list</button> -->
+      
+      <ul id="funky-list"></ul>
+      <canvas id="funky-chart" width="600px" height="400px"></canvas>
+      <!-- <ul id="totalClickCount" class="collection with-header">
+          <li class="collection-header"><p>Number of Clicks:</p></li>
+          <li class="collection-item">Alvin</li>
+        </ul>
+        <ul id="lastItemSelected" class="collection with-header">
+            <li class="collection-header"><p>Last Item Selected:</p></li>
+            <li class="collection-item">Alvin</li>
+          </ul>
+          <ul id="selectedItemList2" class="collection with-header">
+              <li class="collection-header"><p>Last Item Selected:</p></li>
+              <li class="collection-item">Alvin</li>
+            </ul>
+          <ul id="selectedItemList" class="collection with-header">
+              <li class="collection-header"><p>Top Clicked Count:</p></li>
+              <li class="collection-item">Alvin</li>
+            </ul>
+            <ul id="selectedItemList2" class="collection with-header">
+                <li class="collection-header"><p>Top Viewed Count:</p></li>
+                <li class="collection-item">Alvin</li>
+              </ul> -->
+
     </section>
     
     <aside>
       <h4>Stats</h4>
+      <a id="draw-chart" class="waves-effect waves-light btn-large"><i class="material-icons left">insert_chart</i>Chart View</a>      
       <div>Number of Clicks:</div>
       <p class="total" id="totalClickCount"></p>
       <div>Last Item Selected:</div>
@@ -53,14 +94,54 @@
       <ul class="total" id="selectedItemList"></ul>
       <div>Top Viewed Count:</div>
       <ul class="total" id="selectedItemList2"></ul>
-    </aside>
 
+    </aside>
   </main>
-  <footer>
-    <div>
-      <p>Sample Hoofer Text</p>
-    </div>
-  </footer>
-  <script src="js/app.js"></script>
-</body>
-</html>
+  <footer id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Bus Mall</h5>
+          <ul>
+            <li>
+              <a class="grey-text text-lighten-4" href="#">Git Repo</a>
+            </li>
+            <li>
+              <a class="grey-text text-lighten-4" href="#!">douglas.klemp@gmail.com<a>
+              </li>
+              <li>
+                <br>
+                <br>
+              </li>
+              <li>
+                <a class="grey-text text-lighten-4" href="#">© 2019 Let's Git it!!! Student at Code Fellows</a>
+              </li>
+            </div>
+            <div class="col l6 s12">
+              <h5 class="white-text">Doug Klemp</h5>
+              <ul>
+                <li>
+                  <a class="grey-text text-lighten-3" href="#!">Web Developer | SDE | Artist</a>
+                </li>
+                <li>
+                  <a class="grey-text text-lighten-3" href="#!">Father to 2 boys: 7yr & 8mo </a>
+                </li>
+                <li>
+                  <a class="grey-text text-lighten-3" href="#!">Pro Handyman | Optician</a>
+                </li>
+                <li>
+                  <a class="grey-text text-lighten-3" href="#!">Veteran</a>
+                </li>
+                <li>
+                  <a class="grey-text text-lighten-3" href="#!">Crytpo Enthusiast | Miner<a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+        <script src="js/app.js"></script>
+      </body>
+      </html>
+      

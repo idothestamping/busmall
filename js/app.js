@@ -7,6 +7,13 @@ var busMallPic3 = document.getElementById('busMallPic3');
 var lastItemSelected = document.getElementById('lastItemSelected');
 var totalClickCount = document.getElementById('totalClickCount');
 var totalViews = 0;
+var counter = 1;
+
+var clicks = [];
+var titles = [];
+var views = [];
+var productChart;
+var chartDrawn = false;
 
 function BusMallPic(name) {
   this.filepath = `assets/${name}.jpg`;
@@ -77,9 +84,6 @@ function showRandomPic() {
   busMallPic3.title = newGenNumThree[2].name;
 }
 
-showRandomPic();
-
-var counter = 1;
 function handlePicClick(event) {
   // console.log(event);
   console.log('clicked event: ' + event.target.alt);
@@ -94,13 +98,7 @@ function handlePicClick(event) {
   // add to user total counter per click
   counter++;
   console.log(counter);
-  if(counter === 26) { // change to 25 per user story
-    for(var i = 0 ; i < allPics.length; i++) {
-      var grabDiv = document.getElementById('grandTotal');
-      var addAllPicsArr = document.createElement('li');
-      addAllPicsArr.textContent = allPics[i].name + ' was clicked (' + allPics[i].clicked + ') times' + ' out of (' + allPics[i].views + ') views.';
-      grabDiv.appendChild(addAllPicsArr).classList.add('list');
-    }
+  if(counter === 25) { // change to 25 per user story
     var selectedItemList = document.getElementById('selectedItemList');
     var selectedItemList2 = document.getElementById('selectedItemList2');
 
@@ -122,12 +120,174 @@ function handlePicClick(event) {
     busMallPic.removeEventListener('click', handlePicClick);
     busMallPic2.removeEventListener('click', handlePicClick);
     busMallPic3.removeEventListener('click', handlePicClick);
-
+    // updateChartArrays();
   }
   showRandomPic();
+  updateChartArrays();
 }
+
+showRandomPic();
+updateChartArrays();
+// drawChart();
+
+// updateChartArrays();
 
 busMallPic.addEventListener('click', handlePicClick);
 busMallPic2.addEventListener('click', handlePicClick);
 busMallPic3.addEventListener('click', handlePicClick);
+
+
+// for(var i = 0 ; i < allPics.length; i++) {
+//   var grabDiv = document.getElementById('grandTotal');
+//   var addAllPicsArr = document.createElement('li');
+//   addAllPicsArr.textContent = allPics[i].name + ' was clicked (' + allPics[i].clicked + ') times' + ' out of (' + allPics[i].views + ') views.';
+//   grabDiv.appendChild(addAllPicsArr).classList.add('list');
+// }
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++
+// DATA - Variable declarations
+// ++++++++++++++++++++++++++++++++++++++++++++
+
+// var allPics = [];
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++
+// DATA - Constructor and instances
+// ++++++++++++++++++++++++++++++++++++++++++++
+
+// function Song(title, identifier) {
+//   this.title = title;
+//   this.clicks = 0;
+//   this.identifier = identifier;
+//   allPics.push(this);
+// }
+
+// new Song('Purple Rain', 'purplerain');
+// new Song('Let\'s Work', 'letswork');
+// new Song('DMSR', 'dmsr');
+// new Song('Mountains', 'mountains');
+// new Song('Starfish and Coffee', 'starfish');
+
+// Arrays to hold data for the chart
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++
+// FUNCTION DECLARATIONS
+// ++++++++++++++++++++++++++++++++++++++++++++
+
+function updateChartArrays() {
+  for (var i = 0; i < allPics.length; i++) {
+    clicks[i] = allPics[i].clicked;
+    views[i] = allPics[i].views;
+    titles[i] = allPics[i].name;
+  }
+}
+
+function showSongsAsList() {
+  var productList = document.getElementById('funky-list');
+  productList.innerHTML = '';
+  productList.hidden = false;
+  productList.textContent = 'CLICK ON THIS LIST TO HIDE IT';
+  for (var i = 0; i < allPics.length; i++) {
+    var liEl = document.createElement('li');
+    liEl.textContent = allPics[i].name + ', ' + allPics[i].clicked + ' clicks';
+    productList.appendChild(liEl);
+  }
+}
+
+function tallyVote(thisSong) {
+  for (var i = 0; i < allPics.length; i++) {
+    if (thisSong === allPics[i].identifier) {
+      allPics[i].clicks++;
+      updateChartArrays();
+    }
+  }
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++
+// CHART STUFF
+// Charts rendered using Chart JS v.2.6.0
+// http://www.chartjs.org/
+// ++++++++++++++++++++++++++++++++++++++++++++
+
+var data = {
+  labels: titles, // titles array we declared earlier
+  datasets: [{
+    label: 'Number of clicks',
+    data: clicks, // clicks array we declared earlier
+    backgroundColor: [
+      '#e6194B', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#42d4f4', '#f032e6', '#bfef45', '#fabebe', '#469990', '#e6beff', '#9A6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#a9a9a9'
+    ],
+    hoverBackgroundColor: [
+      'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple'
+    ],
+  }]
+};
+
+function drawChart() {
+  var ctx = document.getElementById('funky-chart').getContext('2d');
+  productChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: false,
+      animation: {
+        duration: 1000,
+        easing: 'easeOutBounce'
+      },
+      layout: {
+        padding: {
+          left: 20,
+          right: 20,
+          top: 20,
+          bottom: 20
+        }
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 10,
+          min: 0,
+          stepSize: 1.0
+        }
+      }]
+    }
+  });
+  chartDrawn = true;
+}
+
+function hideChart() {
+  document.getElementById('funky-chart').hidden = true;
+}
+// ++++++++++++++++++++++++++++++++++++++++++++
+// EVENT LISTENERS
+// ++++++++++++++++++++++++++++++++++++++++++++
+
+document.getElementById('draw-chart').addEventListener('click', function() {
+  drawChart();
+  console.log('chart was drawn');
+});
+
+// document.getElementById('list-button').addEventListener('click', function() {
+//   showSongsAsList();
+// });
+
+// document.getElementById('list-button').addEventListener('click', showSongsAsList);
+
+document.getElementById('funky-list').addEventListener('click', function() {
+  document.getElementById('funky-list').hidden = true;
+});
+
+document.getElementById('voting').addEventListener('click', function(event) {
+  if (event.target.id !== 'voting') {
+    tallyVote(event.target.id);
+  }
+
+  if (chartDrawn) {
+    productChart.update();
+  }
+});
+
 
