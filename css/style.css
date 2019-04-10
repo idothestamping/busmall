@@ -4,7 +4,6 @@
 
 body {
   background:radial-gradient(#c187ff, #fff) fixed;
-
 }
 
 header {
@@ -13,7 +12,6 @@ header {
 }
 
 nav {
-  /* max-width:  900px; */
   margin: 0 auto;
 }
 
@@ -22,23 +20,18 @@ nav {
 }
 
 main {
+  text-align: center;
   max-width: 900px;
   margin: 0 auto;
-  /* height: 700px;  */
 }
 
 section {
   margin-top: 0;
   margin-bottom: 100%;
-  float: left;
-  width: 75%;;
+  /* float: left; */
+  width: 100%;
   padding-top: 50px;
-}
-
-aside { 
-  padding-left: 30px;
-  width: 25%;
-  float: left;
+  text-align: center;
 }
 
 img {
@@ -53,19 +46,6 @@ img {
   margin: 0 10px;
 }
 
-/* ul {
-  float: left;
-  margin-bottom: 0;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  list-style: none;
-  margin: 20px 40px 20px 0px;
-  font-size: 1.2em;
-} */
-
 footer {
   background: #690a7e;
   width: 100%;
@@ -79,15 +59,12 @@ footer div {
   
 }
 
-section div {
-  padding: 7px;
-  box-sizing: border-box;
-  float: left;
-  width: 50%;
+section {
+  margin-bottom: 50px;
+  padding-bottom: 50px;
 }
 
 .total {
-  /* font-size: 130%; */
   padding: 0 20px;
   margin: 5px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -126,4 +103,16 @@ section div {
 
 #voting {
   padding: 50 20 0 0;
+  margin: 0;
+}
+
+.sidenav-transition .sidenav-backdrop.mat-sidenav-shown {
+  background: #282828 !important;  
+}
+
+#funky-chart {
+  max-height: 300px;
+  max-width: 900px;
+  padding: 0 10%;
+  width: auto;
 }

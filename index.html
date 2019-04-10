@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Image Event Demo</title>
+  <title>BusMall</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" type="image/x-icon" href="assets/fingerheart.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -18,7 +18,7 @@
   <header> 
     <nav>
       <div class="nav-wrapper">
-        <a href="/" class="brand-logo"><i class="material-icons">directions_bus</i>Bus Mall</a>
+        <a href="#" class="brand-logo"><i class="material-icons">directions_bus</i>Bus Mall</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="menu1" class="right hide-on-med-and-down">
           <li><a class="menu2" href="">Sign up (DEMO)</a></li>
@@ -36,19 +36,21 @@
     </nav>
   </header>
   <main>
+    <h3>Bus Mall Market Strategy</h3>
+    
+    <!-- <a id="draw-chart" class="waves-effect waves-light btn-large"><i class="material-icons left">insert_chart</i>Chart View</a>    -->
+    
     <section id="voting">
+      <canvas id="funky-chart" width="600px" height="400px"></canvas>
+      
       <img class ="productImg" id="busMallPic" src="" alt="" title="" />
       <img class ="productImg" id="busMallPic2" src="" alt="" title="" />
       <img class ="productImg" id="busMallPic3" src="" alt="" title="" />
       <ul id="grandTotal"></ul>      
-      
-      <canvas id="funky-chart" width="600px" height="400px"></canvas>
-      
+
       <ul id="funky-list"></ul>
-    </section>
-    <aside>
-      <h4>Stats</h4>
-        <a id="draw-chart" class="waves-effect waves-light btn-large"><i class="material-icons left">insert_chart</i>Chart View</a>      
+
+      <h4>Stats</h4>   
       <div>Number of Clicks:</div>
         <p class="total" id="totalClickCount"></p>
       <div>Last Item Selected:</div>
@@ -57,7 +59,8 @@
         <ul class="total" id="selectedItemList"></ul>
       <div>Top Viewed Count:</div>
         <ul class="total" id="selectedItemList2"></ul>
-    </aside>
+      </section>
+
   </main>
   <footer id="contact">
     <div class="container">
@@ -103,6 +106,7 @@
       </div>
     </footer>
       <script src="js/app.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
   </body>
   </html>
       

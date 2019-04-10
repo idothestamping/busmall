@@ -1,4 +1,14 @@
 'use strict';
+$(document).ready(function(){
+  $('.sidenav').sidenav();
+  setTimeout(function() {
+    drawChart();
+    showRandomPic();
+  }, 500);
+
+});
+  
+
 //global variables
 var allPics = [];
 var busMallPic = document.getElementById('busMallPic');
@@ -131,10 +141,7 @@ function handlePicClick(event) {
   showRandomPic();
   updateChartArrays();
 }
-
-showRandomPic();
 updateChartArrays();
-// drawChart();
 // updateChartArrays();
 
 busMallPic.addEventListener('click', handlePicClick);
@@ -150,18 +157,6 @@ function updateChartArrays() {
     clicks[i] = allPics[i].clicked;
     views[i] = allPics[i].views;
     titles[i] = allPics[i].name;
-  }
-}
-
-function showSongsAsList() {
-  var productList = document.getElementById('funky-list');
-  productList.innerHTML = '';
-  productList.hidden = false;
-  productList.textContent = 'CLICK ON THIS LIST TO HIDE IT';
-  for (var i = 0; i < allPics.length; i++) {
-    var liEl = document.createElement('li');
-    liEl.textContent = allPics[i].name + ', ' + allPics[i].clicked + ' clicks';
-    productList.appendChild(liEl);
   }
 }
 
@@ -200,7 +195,7 @@ function drawChart() {
     type: 'bar',
     data: data,
     options: {
-      responsive: false,
+      responsive: true,
       animation: {
         duration: 1000,
         easing: 'easeOutBounce'
@@ -234,10 +229,10 @@ function hideChart() {
 // EVENT LISTENERS
 // ++++++++++++++++++++++++++++++++++++++++++++
 
-document.getElementById('draw-chart').addEventListener('click', function() {
-  drawChart();
-  console.log('chart was drawn');
-});
+// document.getElementById('draw-chart').addEventListener('click', function() {
+//   drawChart();
+//   console.log('chart was drawn');
+// });
 
 document.getElementById('funky-list').addEventListener('click', function() {
   document.getElementById('funky-list').hidden = true;
