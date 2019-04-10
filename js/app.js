@@ -135,21 +135,11 @@ function handlePicClick(event) {
 showRandomPic();
 updateChartArrays();
 // drawChart();
-
 // updateChartArrays();
 
 busMallPic.addEventListener('click', handlePicClick);
 busMallPic2.addEventListener('click', handlePicClick);
 busMallPic3.addEventListener('click', handlePicClick);
-
-
-// for(var i = 0 ; i < allPics.length; i++) {
-//   var grabDiv = document.getElementById('grandTotal');
-//   var addAllPicsArr = document.createElement('li');
-//   addAllPicsArr.textContent = allPics[i].name + ' was clicked (' + allPics[i].clicked + ') times' + ' out of (' + allPics[i].views + ') views.';
-//   grabDiv.appendChild(addAllPicsArr).classList.add('list');
-// }
-
 
 // ++++++++++++++++++++++++++++++++++++++++++++
 // FUNCTION DECLARATIONS
