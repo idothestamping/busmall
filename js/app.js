@@ -4,7 +4,7 @@ $(document).ready(function(){
   setTimeout(function() {
     drawChart();
     showRandomPic();
-  }, 500);
+  }, 1000);
 
 });
   
@@ -131,12 +131,12 @@ function handlePicClick(event) {
     busMallPic2.removeEventListener('click', handlePicClick);
     busMallPic3.removeEventListener('click', handlePicClick);
     // updateChartArrays();
-    for(var i = 0 ; i < allPics.length; i++) {
-      var grabDiv = document.getElementById('funky-list');
-      var addAllPicsArr = document.createElement('li');
-      addAllPicsArr.textContent = allPics[i].name + ' was clicked (' + allPics[i].clicked + ') times' + ' out of (' + allPics[i].views + ') views.';
-      grabDiv.appendChild(addAllPicsArr).classList.add('list');
-    }
+    // for(var i = 0 ; i < allPics.length; i++) {
+    //   var grabDiv = document.getElementById('funky-list');
+    //   var addAllPicsArr = document.createElement('li');
+    //   addAllPicsArr.textContent = allPics[i].name + ' was clicked (' + allPics[i].clicked + ') times' + ' out of (' + allPics[i].views + ') views.';
+    //   grabDiv.appendChild(addAllPicsArr).classList.add('list');
+    // }
   }
   showRandomPic();
   updateChartArrays();
@@ -225,14 +225,6 @@ function drawChart() {
 function hideChart() {
   document.getElementById('funky-chart').hidden = true;
 }
-// ++++++++++++++++++++++++++++++++++++++++++++
-// EVENT LISTENERS
-// ++++++++++++++++++++++++++++++++++++++++++++
-
-// document.getElementById('draw-chart').addEventListener('click', function() {
-//   drawChart();
-//   console.log('chart was drawn');
-// });
 
 document.getElementById('funky-list').addEventListener('click', function() {
   document.getElementById('funky-list').hidden = true;
