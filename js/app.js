@@ -98,7 +98,7 @@ function handlePicClick(event) {
   // add to user total counter per click
   counter++;
   console.log(counter);
-  if(counter === 25) { // change to 25 per user story
+  if(counter === 26) { // change to 25 per user story
     var selectedItemList = document.getElementById('selectedItemList');
     var selectedItemList2 = document.getElementById('selectedItemList2');
 
@@ -121,6 +121,12 @@ function handlePicClick(event) {
     busMallPic2.removeEventListener('click', handlePicClick);
     busMallPic3.removeEventListener('click', handlePicClick);
     // updateChartArrays();
+    for(var i = 0 ; i < allPics.length; i++) {
+      var grabDiv = document.getElementById('funky-list');
+      var addAllPicsArr = document.createElement('li');
+      addAllPicsArr.textContent = allPics[i].name + ' was clicked (' + allPics[i].clicked + ') times' + ' out of (' + allPics[i].views + ') views.';
+      grabDiv.appendChild(addAllPicsArr).classList.add('list');
+    }
   }
   showRandomPic();
   updateChartArrays();
@@ -143,33 +149,6 @@ busMallPic3.addEventListener('click', handlePicClick);
 //   addAllPicsArr.textContent = allPics[i].name + ' was clicked (' + allPics[i].clicked + ') times' + ' out of (' + allPics[i].views + ') views.';
 //   grabDiv.appendChild(addAllPicsArr).classList.add('list');
 // }
-
-
-// ++++++++++++++++++++++++++++++++++++++++++++
-// DATA - Variable declarations
-// ++++++++++++++++++++++++++++++++++++++++++++
-
-// var allPics = [];
-
-
-// ++++++++++++++++++++++++++++++++++++++++++++
-// DATA - Constructor and instances
-// ++++++++++++++++++++++++++++++++++++++++++++
-
-// function Song(title, identifier) {
-//   this.title = title;
-//   this.clicks = 0;
-//   this.identifier = identifier;
-//   allPics.push(this);
-// }
-
-// new Song('Purple Rain', 'purplerain');
-// new Song('Let\'s Work', 'letswork');
-// new Song('DMSR', 'dmsr');
-// new Song('Mountains', 'mountains');
-// new Song('Starfish and Coffee', 'starfish');
-
-// Arrays to hold data for the chart
 
 
 // ++++++++++++++++++++++++++++++++++++++++++++
@@ -269,12 +248,6 @@ document.getElementById('draw-chart').addEventListener('click', function() {
   drawChart();
   console.log('chart was drawn');
 });
-
-// document.getElementById('list-button').addEventListener('click', function() {
-//   showSongsAsList();
-// });
-
-// document.getElementById('list-button').addEventListener('click', showSongsAsList);
 
 document.getElementById('funky-list').addEventListener('click', function() {
   document.getElementById('funky-list').hidden = true;
