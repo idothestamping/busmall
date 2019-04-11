@@ -1,29 +1,29 @@
 'use strict';
+//eslint-disable-next-line no-undef
 $(document).ready(function(){
+  //eslint-disable-next-line no-undef
   $('.sidenav').sidenav();
   setTimeout(function() {
     drawChart();
-    showRandomPic();
-  }, 1000);
 
+    showRandomPic();
+  }, 500);
 });
-  
 
 //global variables
-var allPics = [];
-var busMallPic = document.getElementById('busMallPic');
-var busMallPic2 = document.getElementById('busMallPic2');
-var busMallPic3 = document.getElementById('busMallPic3');
-var lastItemSelected = document.getElementById('lastItemSelected');
-var totalClickCount = document.getElementById('totalClickCount');
-var totalViews = 0;
-var counter = 1;
+const busMallPic = document.getElementById('busMallPic');
+const busMallPic2 = document.getElementById('busMallPic2');
+const busMallPic3 = document.getElementById('busMallPic3');
+const topProductClick = document.getElementById('topProductClick');
+const topProductView = document.getElementById('topProductView');
+const totalClickCount = document.getElementById('totalClickCount');
+const lastItemSelected = document.getElementById('lastItemSelected');
 
+var allPics = [];
+var data;
 var clicks = [];
 var titles = [];
-var views = [];
 var productChart;
-var chartDrawn = false;
 
 function BusMallPic(name) {
   this.filepath = `assets/${name}.jpg`;
@@ -54,23 +54,42 @@ new BusMallPic('usb');
 new BusMallPic('water-can');
 new BusMallPic('wine-glass');
 
+// REF: https://stackoverflow.com/questions/43762363/how-to-store-an-array-of-objects-in-local-storage
+if (localStorage.getItem('data') === null){
+  localStorage.setItem('data', JSON.stringify(allPics));
+  data = JSON.parse(localStorage.getItem('data') || '[]');
+  localStorage.totalViewCount = 0;
+  localStorage.totalClickCount = 0;
+
+}
+data = JSON.parse(localStorage.getItem('data') || '[]');
+topProductClick.textContent = localStorage.saveTopProductClick;
+topProductView.textContent = localStorage.saveTopProductView;
+totalClickCount.textContent = localStorage.totalClickCount;
+lastItemSelected.textContent = localStorage.savelastItemSelected;
+
+// Add event listener to products
+busMallPic.addEventListener('click', handlePicClick);
+busMallPic2.addEventListener('click', handlePicClick);
+busMallPic3.addEventListener('click', handlePicClick);
+
+// Get random 3 int within min/max with No duplicates
 function showRandomPic() {
-
   var newGenNumThree = [];
-
   function in_array(array, el) {
-    for(var i = 0 ; i < allPics.length; i++)
+    for(var i = 0 ; i < data.length; i++)
       if(array[i] === el) return true;
     return false;
   }
 
   function get_rand(array) {
-    var rand = allPics[Math.floor(Math.random() * allPics.length)]; // Product Object
+    var rand = data[Math.floor(Math.random() * data.length)];
     for(var i = 0; i < 3; i++) {
       if(!in_array(newGenNumThree, rand)) {
-        newGenNumThree.push(rand); // Add new product to array 3 times, only if it's not duplicate
+        newGenNumThree.push(rand);
         rand.views += 1;
-        totalViews++;
+        // totalViews++;
+        localStorage.totalViewCount = Number(localStorage.totalViewCount) + 1;
         return rand;
       }
       return get_rand(array);
@@ -80,7 +99,7 @@ function showRandomPic() {
   for(var i = 0; i < 3; i++) {
     get_rand();
   }
-
+  // Use generated int to target product img
   busMallPic.src = newGenNumThree[0].filepath;
   busMallPic.alt = newGenNumThree[0].name;
   busMallPic.title = newGenNumThree[0].name;
@@ -95,87 +114,55 @@ function showRandomPic() {
 }
 
 function handlePicClick(event) {
-  // console.log(event);
-  console.log('clicked event: ' + event.target.alt);
-  // console.log(allPics);
-  var addCount = allPics.find(function(allPics) {
-    return allPics.name === event.target.alt;
-  });
-  addCount.clicked += 1;
-  console.log('User picked ' + addCount.name + ' Total clicked count: ' + addCount.clicked);
-  lastItemSelected.innerHTML = event.target.alt;
-  totalClickCount.innerHTML = counter;
-  // add to user total counter per click
-  counter++;
-  console.log(counter);
-  if(counter === 26) { // change to 25 per user story
-    var selectedItemList = document.getElementById('selectedItemList');
-    var selectedItemList2 = document.getElementById('selectedItemList2');
+  // Local Storage:
+  var clickTotal = data.reduce(function (prev, current) {
+    return (prev.clicked > current.clicked) ? prev : current;});
+  var viewTotal = data.reduce(function (prev, current) {
+    return (prev.views > current.views) ? prev : current;});
+  var clickedProduct = data.find(function(data) {
+    return data.name === event.target.alt;});
+  // Current product click count
+  clickedProduct.clicked += 1;
+  console.log('User clicked (' + clickedProduct.name + ') with (' + clickedProduct.clicked + ') total click count and this Object is:', clickedProduct);
 
-    var addselectedItem = document.createElement('li');
-    var addselectedItem2 = document.createElement('li');
-    var clickTotal = allPics.reduce(function (prev, current) {
-      return (prev.clicked > current.clicked) ? prev : current;});
-    var viewTotal = allPics.reduce(function (prev, current) {
-      return (prev.views > current.views) ? prev : current;});
-    // addselectedItem.textContent = clickTotal.name + ' (' + clickTotal.clicked + ') ' + (clickTotal.clicked * 100/counter)+'% of Total Clicks';
-    addselectedItem.textContent = clickTotal.name + '@ ' + clickTotal.clicked + ' clicks (' + (Math.round(clickTotal.clicked * 100/counter)).toFixed(2) + '%) of Total';
-    addselectedItem2.textContent = viewTotal.name + '@ ' + viewTotal.views + ' views (' + (Math.round(viewTotal.views * 100/totalViews)).toFixed(2) + '%) of Total';
-    // addselectedItem.textContent = max.name + ' ' + Math.max.apply(Math, allPics.map(function(o) {
-    //   return o.clicked; }));
-    // addselectedItem2.textContent = Math.max.apply(Math, allPics.map(function(o) {
-    // return o.views; }));
-    selectedItemList.appendChild(addselectedItem).classList.add('list');
-    selectedItemList2.appendChild(addselectedItem2).classList.add('list');
-    busMallPic.removeEventListener('click', handlePicClick);
-    busMallPic2.removeEventListener('click', handlePicClick);
-    busMallPic3.removeEventListener('click', handlePicClick);
-    // updateChartArrays();
-    // for(var i = 0 ; i < allPics.length; i++) {
-    //   var grabDiv = document.getElementById('funky-list');
-    //   var addAllPicsArr = document.createElement('li');
-    //   addAllPicsArr.textContent = allPics[i].name + ' was clicked (' + allPics[i].clicked + ') times' + ' out of (' + allPics[i].views + ') views.';
-    //   grabDiv.appendChild(addAllPicsArr).classList.add('list');
-    // }
-  }
+  // Total click count and Display last clicked Product
+  var topProductClickText = clickTotal.name + '@ ' + clickTotal.clicked + ' clicks, (' + (Math.round(clickTotal.clicked * 100/localStorage.totalClickCount)).toFixed(2) + '%) of Total';
+  var topProductViewText = topProductView.textContent = viewTotal.name + '@ ' + viewTotal.views + ' views, (' + (Math.round(viewTotal.views * 100/localStorage.totalViewCount)).toFixed(2) + '%) of Total';
+  localStorage.totalClickCount = Number(localStorage.totalClickCount)+1;
+
+  // Stats:
+  topProductClick.textContent = topProductClickText;
+  topProductView.textContent = topProductViewText;
+  totalClickCount.textContent = localStorage.totalClickCount;
+  lastItemSelected.textContent = clickedProduct.name;
+
+  // Save to local Storage:
+  localStorage.saveTopProductClick = topProductClickText;
+  localStorage.saveTopProductView = topProductViewText;
+  localStorage.savelastItemSelected = clickedProduct.name;
+
   showRandomPic();
   updateChartArrays();
+  productChart.update();
 }
-updateChartArrays();
-// updateChartArrays();
-
-busMallPic.addEventListener('click', handlePicClick);
-busMallPic2.addEventListener('click', handlePicClick);
-busMallPic3.addEventListener('click', handlePicClick);
-
-// ++++++++++++++++++++++++++++++++++++++++++++
-// FUNCTION DECLARATIONS
-// ++++++++++++++++++++++++++++++++++++++++++++
 
 function updateChartArrays() {
-  for (var i = 0; i < allPics.length; i++) {
-    clicks[i] = allPics[i].clicked;
-    views[i] = allPics[i].views;
-    titles[i] = allPics[i].name;
+  for (var i = 0; i < data.length; i++) {
+    console.log('test');
+    clicks[i] = data[i].clicked;
+    titles[i] = data[i].name;
+    // Saving for attempt to add chart to local storage.
+    // var click = JSON.parse(localStorage.getItem('click'));
+    // click.push(data[i]);
+    // localStorage.setItem('click', JSON.stringify(click));
   }
 }
-
-function tallyVote(thisSong) {
-  for (var i = 0; i < allPics.length; i++) {
-    if (thisSong === allPics[i].identifier) {
-      allPics[i].clicks++;
-      updateChartArrays();
-    }
-  }
-}
-
 // ++++++++++++++++++++++++++++++++++++++++++++
 // CHART STUFF
 // Charts rendered using Chart JS v.2.6.0
 // http://www.chartjs.org/
 // ++++++++++++++++++++++++++++++++++++++++++++
-
-var data = {
+var chartData = {
   labels: titles, // titles array we declared earlier
   datasets: [{
     label: 'Number of clicks',
@@ -184,16 +171,17 @@ var data = {
       '#e6194B', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#42d4f4', '#f032e6', '#bfef45', '#fabebe', '#469990', '#e6beff', '#9A6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#a9a9a9'
     ],
     hoverBackgroundColor: [
-      'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple'
+      '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e', '690a7e'
     ],
   }]
 };
 
 function drawChart() {
-  var ctx = document.getElementById('funky-chart').getContext('2d');
+  var ctx = document.getElementById('canvas-chart').getContext('2d');
+  //eslint-disable-next-line no-undef
   productChart = new Chart(ctx, {
     type: 'bar',
-    data: data,
+    data: chartData,
     options: {
       responsive: true,
       animation: {
@@ -219,25 +207,23 @@ function drawChart() {
       }]
     }
   });
-  chartDrawn = true;
 }
 
-function hideChart() {
-  document.getElementById('funky-chart').hidden = true;
+document.getElementById('delete-local').addEventListener('click', function() {
+  deleteLocal();
+});
+
+function deleteLocal() {
+  // var counter = 0;
+  localStorage.clear();
+  localStorage.totalViewCount = 0;
+  localStorage.totalClickCount = 0;
+  console.log('delete local:', localStorage);
+  topProductClick.textContent = 'Ready';
+  topProductView.textContent = 'Ready';
+  totalClickCount.textContent = 'Ready';
+  lastItemSelected.textContent = 'Ready';
+  // location.reload();
 }
 
-document.getElementById('funky-list').addEventListener('click', function() {
-  document.getElementById('funky-list').hidden = true;
-});
-
-document.getElementById('voting').addEventListener('click', function(event) {
-  if (event.target.id !== 'voting') {
-    tallyVote(event.target.id);
-  }
-
-  if (chartDrawn) {
-    productChart.update();
-  }
-});
-
-
+updateChartArrays();
