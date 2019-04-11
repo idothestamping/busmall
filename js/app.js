@@ -1,14 +1,27 @@
 'use strict';
 //eslint-disable-next-line no-undef
 $(document).ready(function(){
+  $(".maintitle").lettering();
+  // $(".button").lettering();
   //eslint-disable-next-line no-undef
   $('.sidenav').sidenav();
   setTimeout(function() {
+    animation();
     drawChart();
-
     showRandomPic();
   }, 500);
+  
 });
+
+// Title Animation
+function animation() {
+  var title1 = new TimelineMax();
+  title1.to(".button", 0, {visibility: 'hidden', opacity: 0})
+  title1.staggerFromTo(".maintitle span", 0.5, 
+  {ease: Back.easeOut.config(1.7), opacity: 0, bottom: -80},
+  {ease: Back.easeOut.config(1.7), opacity: 1, bottom: 0}, 0.05);
+  title1.to(".button", 0.2, {visibility: 'visible' ,opacity: 1})
+}
 
 //global variables
 const busMallPic = document.getElementById('busMallPic');
