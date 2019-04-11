@@ -37,11 +37,32 @@
   </header>
   <main>
     <h3>Bus Mall Market Strategy</h3>
-    
-    <!-- <a id="draw-chart" class="waves-effect waves-light btn-large"><i class="material-icons left">insert_chart</i>Chart View</a>    -->
+    <div class="row mainbox">
+        <div class="col s8">
+          <h4>Stats</h4>   
+
+            <div>Top Clicked Product:</div>
+              <div class="total" id="topProductClick">Ready</div>
+
+            <div>Top Viewd Product:</div>
+              <div class="total" id="topProductView">Ready</div>
+              
+            <div>Total number of Clicks:</div>
+              <div class="total" id="totalClickCount"></div>
+
+            <div>Last Product Selected:</div>
+              <div class="total" id="lastItemSelected">Ready</div>
+
+        </div>
+        <div class="col s4"></div>
+        <a id="delete-local" class="waves-effect waves-light btn-large"><i class="material-icons left">delete_sweep</i>Clear Stats</a>
+      </div>  
+
+    </div>
+
     
     <section id="voting">
-      <canvas id="funky-chart"></canvas>
+      <canvas id="canvas-chart"></canvas>
       
       <img class ="productImg" id="busMallPic" src="" alt="" title="" />
       <img class ="productImg" id="busMallPic2" src="" alt="" title="" />
@@ -49,16 +70,6 @@
       <ul id="grandTotal"></ul>      
 
       <ul id="funky-list"></ul>
-
-      <h4>Stats</h4>   
-      <div>Number of Clicks:</div>
-        <p class="total" id="totalClickCount"></p>
-      <div>Last Item Selected:</div>
-        <p class="total" id="lastItemSelected"></p>
-      <div>Top Clicked Count:</div>
-        <ul class="total" id="selectedItemList"></ul>
-      <div>Top Viewed Count:</div>
-        <ul class="total" id="selectedItemList2"></ul>
       </section>
 
   </main>

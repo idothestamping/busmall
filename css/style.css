@@ -23,6 +23,10 @@ main {
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
+  padding: 0 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 800;
+  color: rgb(75, 1, 75);
 }
 
 section {
@@ -37,7 +41,6 @@ section {
 img {
   max-width: 100%;
   max-height: 100%;
-  object-fit: scale-down;
 }
 
 .productImg {
@@ -65,23 +68,25 @@ section {
 }
 
 .total {
+  font-size: 120%;
+  text-shadow: 2px 2px white;
   padding: 0 20px;
   margin: 5px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 800;
-  color:#a0050d;
+  color:#a10c68;
 	-webkit-animation: flash linear 2.5s infinite;
   animation: flash linear 2.5s infinite;
 }
 @-webkit-keyframes flash {
-  0% { opacity: 1; } 
-  50% { opacity: .1; } 
-  100% { opacity: 1; }
+  0% { opacity: 2; } 
+  50% { opacity: .2; } 
+  100% { opacity: 2; }
 }
 @keyframes flash {
-  0% { opacity: 1; } 
-  50% { opacity: .1; } 
-  100% { opacity: 1; }
+  0% { opacity: 2; } 
+  50% { opacity: .2; } 
+  100% { opacity: 2 }
 }
 
 .list {
@@ -96,9 +101,10 @@ section {
   text-align: center;
 }
 
-#draw-chart {
+#delete-local {
   background-color: #690a7e !important;
   margin: 50px 0;
+  width: 300x;
 }
 
 #voting {
@@ -110,7 +116,7 @@ section {
   background: #282828 !important;  
 }
 
-#funky-chart {
+#canvas-chart {
   max-height: 300px;
   max-width: 900px;
   padding: 0 10%;
