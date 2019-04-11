@@ -43,10 +43,24 @@ img {
   max-height: 100%;
 }
 
+
 .productImg {
   height: 200px;
   width: 200px;
   margin: 0 10px;
+  transition-duration: .8s;
+}
+
+.productImg:hover {
+  cursor: pointer;
+	opacity: .8;
+	transition-duration: .8s;
+  display: inline-block; 
+  -webkit-transform:scale(1.2); 
+  display: inline-block; 
+  -moz-transform: scale(1.2);
+  display: inline-block; 
+  -ms-transform: scale(1.2);
 }
 
 footer {
@@ -122,3 +136,4 @@ section {
   padding: 0 10%;
   width: auto;
 }
+
