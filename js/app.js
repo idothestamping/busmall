@@ -2,8 +2,8 @@
 //eslint-disable-next-line no-undef
 $(document).ready(function(){
   //eslint-disable-next-line no-undef
-  $(".maintitle").lettering();
-  // $(".button").lettering();
+  $('.maintitle').lettering();
+  // $('.button').lettering();
   //eslint-disable-next-line no-undef
   $('.sidenav').sidenav();
   setTimeout(function() {
@@ -11,23 +11,23 @@ $(document).ready(function(){
     drawChart();
     showRandomPic();
   }, 500);
-  
 });
 
 // Title Animation
 function animation() {
+  //eslint-disable-next-line no-undef
   var title1 = new TimelineMax();
-  title1.to(".button", 0, {visibility: 'hidden', opacity: 0})
-  title1.staggerFromTo(".maintitle span", 0.5, 
-  {ease: Back.easeOut.config(1.7), opacity: 0, bottom: -80},
-  {ease: Back.easeOut.config(1.7), opacity: 1, bottom: 0}, 0.05);
-  title1.to(".button", 0.2, {visibility: 'visible' ,opacity: 1});
+  title1.to('.button', 0, {visibility: 'hidden', opacity: 0});
+  //eslint-disable-next-line no-undef
+  title1.staggerFromTo('.maintitle span', 0.5, {ease: Back.easeOut.config(1.7), opacity: 0, bottom: -80},{ease: Back.easeOut.config(1.7), opacity: 1, bottom: 0}, 0.05);
+  title1.to('.button', 0.2, {visibility: 'visible' ,opacity: 1});
 }
 
 
 /* Lettering.JS 0.6 by Dave Rupert  - http://daverupert.com */
+/*eslint-disable */
 (function($){var methods={init:function(){return this.each(function(){return injector($(this),'','char','')})},words:function(){return this.each(function(){return injector($(this),' ','word',' ')})},lines:function(){return this.each(function(){var t=$(this),r="eefec303079ad17405c889e092e105b0";t.children("br").replaceWith(r);return injector(t,r,'line','')})}};function injector(t,splitter,klass,after){var a=t.text().split(splitter),inject='';if(a.length>0){$(a).each(function(i,item){inject+='<span class="'+klass+(i+1)+'">'+item+'</span>'+after});t.empty();t.append(inject)}}$.fn.lettering=function(method){if(methods[method]){return methods[method].apply(this,Array.prototype.slice.call(arguments,1))}else if(method=='letters'||!method){return methods.init.apply(this,arguments)}else{$.error('Method '+method+' does not exist on jQuery.lettering')}}})(jQuery);
-
+/*eslint-enable */
 
 //global variables
 const busMallPic = document.getElementById('busMallPic');
@@ -135,7 +135,7 @@ function showRandomPic() {
 
 function handlePicClick(event) {
   // Stop user at 25 clicks
-  if(counter == 25) {  
+  if(counter === 25) {
     var reRoll = prompt('Would you like to start over? (y/n)');
     if(reRoll === 'y') {
       deleteLocal();
@@ -180,10 +180,6 @@ function updateChartArrays() {
     console.log('test');
     clicks[i] = data[i].clicked;
     titles[i] = data[i].name;
-    // Saving for attempt to add chart to local storage.
-    // var click = JSON.parse(localStorage.getItem('click'));
-    // click.push(data[i]);
-    // localStorage.setItem('click', JSON.stringify(click));
   }
 }
 // ++++++++++++++++++++++++++++++++++++++++++++
