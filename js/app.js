@@ -1,6 +1,7 @@
 'use strict';
 //eslint-disable-next-line no-undef
 $(document).ready(function(){
+  //eslint-disable-next-line no-undef
   $(".maintitle").lettering();
   // $(".button").lettering();
   //eslint-disable-next-line no-undef
@@ -20,8 +21,13 @@ function animation() {
   title1.staggerFromTo(".maintitle span", 0.5, 
   {ease: Back.easeOut.config(1.7), opacity: 0, bottom: -80},
   {ease: Back.easeOut.config(1.7), opacity: 1, bottom: 0}, 0.05);
-  title1.to(".button", 0.2, {visibility: 'visible' ,opacity: 1})
+  title1.to(".button", 0.2, {visibility: 'visible' ,opacity: 1});
 }
+
+
+/* Lettering.JS 0.6 by Dave Rupert  - http://daverupert.com */
+(function($){var methods={init:function(){return this.each(function(){return injector($(this),'','char','')})},words:function(){return this.each(function(){return injector($(this),' ','word',' ')})},lines:function(){return this.each(function(){var t=$(this),r="eefec303079ad17405c889e092e105b0";t.children("br").replaceWith(r);return injector(t,r,'line','')})}};function injector(t,splitter,klass,after){var a=t.text().split(splitter),inject='';if(a.length>0){$(a).each(function(i,item){inject+='<span class="'+klass+(i+1)+'">'+item+'</span>'+after});t.empty();t.append(inject)}}$.fn.lettering=function(method){if(methods[method]){return methods[method].apply(this,Array.prototype.slice.call(arguments,1))}else if(method=='letters'||!method){return methods.init.apply(this,arguments)}else{$.error('Method '+method+' does not exist on jQuery.lettering')}}})(jQuery);
+
 
 //global variables
 const busMallPic = document.getElementById('busMallPic');
@@ -37,6 +43,7 @@ var data;
 var clicks = [];
 var titles = [];
 var productChart;
+var counter = 0;
 
 function BusMallPic(name) {
   this.filepath = `assets/${name}.jpg`;
@@ -127,6 +134,16 @@ function showRandomPic() {
 }
 
 function handlePicClick(event) {
+  // Stop user at 25 clicks
+  if(counter == 25) {  
+    var reRoll = prompt('Would you like to start over? (y/n)');
+    if(reRoll === 'y') {
+      deleteLocal();
+    } else {
+      showRandomPic();
+    }
+  }
+  counter++;
   // Local Storage:
   var clickTotal = data.reduce(function (prev, current) {
     return (prev.clicked > current.clicked) ? prev : current;});
@@ -142,7 +159,6 @@ function handlePicClick(event) {
   var topProductClickText = clickTotal.name + '@ ' + clickTotal.clicked + ' clicks, (' + (Math.round(clickTotal.clicked * 100/localStorage.totalClickCount)).toFixed(2) + '%) of Total';
   var topProductViewText = topProductView.textContent = viewTotal.name + '@ ' + viewTotal.views + ' views, (' + (Math.round(viewTotal.views * 100/localStorage.totalViewCount)).toFixed(2) + '%) of Total';
   localStorage.totalClickCount = Number(localStorage.totalClickCount)+1;
-
   // Stats:
   topProductClick.textContent = topProductClickText;
   topProductView.textContent = topProductViewText;
@@ -227,7 +243,7 @@ document.getElementById('delete-local').addEventListener('click', function() {
 });
 
 function deleteLocal() {
-  // var counter = 0;
+  counter = 0;
   localStorage.clear();
   localStorage.totalViewCount = 0;
   localStorage.totalClickCount = 0;
@@ -236,7 +252,7 @@ function deleteLocal() {
   topProductView.textContent = 'Ready';
   totalClickCount.textContent = 'Ready';
   lastItemSelected.textContent = 'Ready';
-  // location.reload();
+  location.reload();
 }
 
 updateChartArrays();
